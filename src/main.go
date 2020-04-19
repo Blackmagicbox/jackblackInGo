@@ -5,8 +5,8 @@ import "fmt"
 var card = "Ace of Spades"
 
 func main() {
-	cards := newDeck()
-	cards.saveToFile("my_cards.txt")
+	cards := newDeckFromFile("my_cards.txt")
+	//cards.saveToFile("my_cards.txt")
 
 	hand, remainingCards := deal(cards, 5)
 

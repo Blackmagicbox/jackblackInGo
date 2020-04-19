@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -58,14 +59,24 @@ func deal(d deck, h int) (deck, deck) {
 }
 
 // Converts the whole deck to string
-// Separating each card by coma and linebreak character
+// Separating each card by coma
 func (d deck) toString() string {
-	return strings.Join(d,",\n")
+	return strings.Join(d, ",")
 }
-
 
 // Save the deck converted to string to a file.
 // The file name should be passed when invoking the method
 func (d deck) saveToFile(fileName string) error {
 	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
+}
+// Create a new deck from a coma-separated string
+func newDeckFromFile(filename string) deck {
+	bs, err := ioutil.ReadFile(filename)
+
+	if err != nil {
+		fmt.Println("Error", err)
+		os.Exit(1)
+	}
+
+	return deck(strings.Split(string(bs), ","))
 }
