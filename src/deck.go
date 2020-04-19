@@ -51,14 +51,21 @@ func (d deck) print() {
 	}
 }
 
+// Deal cards based on a hand size
+// It basically splits the deck in 2; hand and remaining
 func deal(d deck, h int) (deck, deck) {
 	return d[:h], d[h:]
 }
 
+// Converts the whole deck to string
+// Separating each card by coma and linebreak character
 func (d deck) toString() string {
 	return strings.Join(d,",\n")
 }
 
+
+// Save the deck converted to string to a file.
+// The file name should be passed when invoking the method
 func (d deck) saveToFile(fileName string) error {
 	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
 }
