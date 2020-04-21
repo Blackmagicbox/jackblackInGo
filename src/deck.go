@@ -11,31 +11,22 @@ import (
 
 // Create a new type called 'deck'
 // Which is based on a slice
+
 type deck []string
 
 // Creates a new deck
 // Iterating over suits and values.
+
 func newDeck() deck {
 	cards := deck{}
 
 	cardSuits := []string{
-		"clubs", "spades", "Diamonds", "Hearts",
+		"Spades", "Hearts", "Diamonds", "Clubs",
 	}
 
 	cardValues := []string{
-		"Ace",
-		"Two",
-		"Three",
-		"Four",
-		"Five",
-		"Six",
-		"Seven",
-		"Eight",
-		"Nine",
-		"Ten",
-		"Jockey",
-		"Queen",
-		"King",
+		"Ace", "Two", "Three", "Four", "Five", "Six",
+		"Seven", "Eight", "Nine", "Ten", "Jockey", "Queen", "King",
 	}
 
 	for _, suit := range cardSuits {
@@ -47,7 +38,8 @@ func newDeck() deck {
 	return cards
 }
 
-// Prints every single card on the deck
+// Iterate over all deck Items printing each one
+
 func (d deck) print() {
 	for _, card := range d {
 		fmt.Printf("%s\n", card)
@@ -56,23 +48,25 @@ func (d deck) print() {
 
 // Deal cards based on a hand size
 // It basically splits the deck in 2; hand and remaining
+
 func deal(d deck, h int) (deck, deck) {
 	return d[:h], d[h:]
 }
 
-// Converts the whole deck to string
-// Separating each card by coma
+// Converts the deck from Slice to string coma separated
+
 func (d deck) toString() string {
 	return strings.Join(d, ",")
 }
 
-// Save the deck converted to string to a file.
-// The file name should be passed when invoking the method
+// Save the deck converted to string into a file.
+
 func (d deck) saveToFile(fileName string) error {
 	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
 }
 
 // Create a new deck from a coma-separated string
+
 func newDeckFromFile(filename string) deck {
 	bs, err := ioutil.ReadFile(filename)
 
@@ -84,7 +78,10 @@ func newDeckFromFile(filename string) deck {
 	return strings.Split(string(bs), ",")
 }
 
-func (d deck) shuffleCards() deck{
+// Shuffles the deck each time the function is called
+// Generating a new Seed each time.
+
+func (d deck) shuffleCards() deck {
 	source := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(source)
 
@@ -94,5 +91,3 @@ func (d deck) shuffleCards() deck{
 	}
 	return d
 }
-
-
