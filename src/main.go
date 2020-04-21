@@ -19,5 +19,4 @@ func main() {
 	fmt.Println()
 	fmt.Println("Your hand:")
 	hand.print()
-
 }
