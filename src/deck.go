@@ -14,9 +14,7 @@ import (
 
 type deck []string
 
-// Creates a new deck
-// Iterating over suits and values.
-
+// Creates a new deck Iterating over suits and values.
 func newDeck() deck {
 	cards := deck{}
 
