@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
+	"os"
 	"strings"
 	"time"
 )
@@ -70,23 +72,32 @@ func (d deck) toString() string {
 }
 
 // Save the deck converted to string into a file.
-
 func (d deck) saveToFile(fileName string) error {
-	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
+	file, err := json.Marshal(d)
+
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+	}
+
+	return ioutil.WriteFile(fileName, file, 0666)
 }
 
 // Create a new deck from a coma-separated string
 // TODO: Refactor this method to create a deck from Json files.
-//func newDeckFromFile(filename string) deck {
-//	bs, err := ioutil.ReadFile(filename)
-//
-//	if err != nil {
-//		fmt.Println("Error", err)
-//		os.Exit(1)
-//	}
-//
-//	return strings.Split(string(bs), ",")
-//}
+func newDeckFromFile(filename string) deck {
+	bs, err := ioutil.ReadFile(filename)
+
+	d := deck{}
+
+	if err != nil {
+		fmt.Println("Error", err)
+		os.Exit(1)
+	}
+
+	_ = json.Unmarshal(bs, &d)
+
+	return d
+}
 
 // Shuffles the deck each time the function is called
 // Generating a new Seed each time.
