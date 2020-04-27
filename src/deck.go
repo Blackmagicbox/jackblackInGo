@@ -17,22 +17,27 @@ type deck []Card
 func newDeck() deck {
 	cards := deck{}
 
-	cardValues := []string {
-		"Ace", "Two", "Three", "Four", "Five", "Six",
-		"Seven", "Eight", "Nine", "Ten", "Jockey", "Queen", "King",
+	cardNames := []string {
+		"Ace", "Two", "Three", "Four", "Five", "Six", "Seven",
+		"Eight", "Nine", "Ten", "Jockey", "Queen", "King",
 	}
 
 	cardSuits := []string{
 		"Spades", "Hearts", "Diamonds", "Clubs",
 	}
 
+	cardValues := []int{ 14,2,3,4,5,6,7,8,9,10,11,12,13}
 
 	for _, suit := range cardSuits {
-		for _, value := range cardValues {
-			cardName := fmt.Sprintf("%v of %v", value, suit)
-			card := Card{ suit: suit, name: cardName }
+		for _, name := range cardNames {
+			cardName := fmt.Sprintf("%v of %v", name, suit)
+			card := Card{ suit: suit, printName: cardName, name: name }
 			cards = append(cards, card)
 		}
+	}
+
+	for k, value := range cardValues {
+		cards[k].value = value
 	}
 	return cards
 }
