@@ -13,7 +13,7 @@ import (
 // Create a new type called 'deck'
 // Which is based on a slice
 
-type deck []Card
+type deck []card
 
 // Creates a new deck Iterating over suits and values.
 func newDeck() deck {
@@ -33,7 +33,7 @@ func newDeck() deck {
 	for _, suit := range cardSuits {
 		for _, name := range cardNames {
 			cardName := fmt.Sprintf("%v of %v", name, suit)
-			card := Card{ suit: suit, printName: cardName, name: name }
+			card := card{ suit: suit, printName: cardName, name: name }
 			cards = append(cards, card)
 		}
 	}
@@ -73,13 +73,9 @@ func (d deck) toString() string {
 
 // Save the deck converted to string into a file.
 func (d deck) saveToFile(fileName string) error {
-	file, err := json.Marshal(d)
+	file, _ := json.Marshal([]card(d))
 
-	if err != nil {
-		fmt.Printf("Error: %v", err)
-	}
-
-	return ioutil.WriteFile(fileName, file, 0666)
+	return ioutil.WriteFile(fileName, file, 0644)
 }
 
 // Create a new deck from a coma-separated string

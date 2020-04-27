@@ -1,12 +1,12 @@
 package main
 
-type Card struct {
-	suit string
-	printName string
-	name string
-	value int
+type card struct {
+	suit string `json:"suit"`
+	printName string `json:"print_name"`
+	name string `json:"name"`
+	value int `json:"value"`
 }
 
-func (c Card) getName() string {
+func (c card) getName() string {
 	return c.printName
 }

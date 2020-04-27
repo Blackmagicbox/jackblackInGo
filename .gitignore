@@ -16,6 +16,7 @@ out
 
 # Generated files
 *.txt
+my_cards.json
 
 # Jetbrains
 .idea
