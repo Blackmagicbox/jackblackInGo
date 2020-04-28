@@ -19,7 +19,7 @@ type deck []card
 func newDeck() deck {
 	cards := deck{}
 
-	cardNames := []string {
+	cardNames := []string{
 		"Ace", "Two", "Three", "Four", "Five", "Six", "Seven",
 		"Eight", "Nine", "Ten", "Jockey", "Queen", "King",
 	}
@@ -28,12 +28,12 @@ func newDeck() deck {
 		"Spades", "Hearts", "Diamonds", "Clubs",
 	}
 
-	cardValues := []int{ 14,2,3,4,5,6,7,8,9,10,11,12,13}
+	cardValues := []int{14, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
 
 	for _, suit := range cardSuits {
 		for _, name := range cardNames {
 			cardName := fmt.Sprintf("%v of %v", name, suit)
-			card := card{ suit: suit, printName: cardName, name: name }
+			card := card{suit: suit, printName: cardName, name: name}
 			cards = append(cards, card)
 		}
 	}
@@ -73,10 +73,14 @@ func (d deck) toString() string {
 
 // Save the deck converted to string into a file.
 func (d deck) saveToFile(fileName string) error {
-	file, _ := json.Marshal(d)
+	file, err := json.MarshalIndent(d, "", " ")
+
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+		return err
+	}
 
 	return ioutil.WriteFile(fileName, file, 0666)
-
 }
 
 // Create a new deck from a coma-separated string
