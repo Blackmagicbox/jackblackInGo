@@ -73,9 +73,10 @@ func (d deck) toString() string {
 
 // Save the deck converted to string into a file.
 func (d deck) saveToFile(fileName string) error {
-	file, _ := json.Marshal([]card(d))
+	file, _ := json.Marshal(d)
 
-	return ioutil.WriteFile(fileName, file, 0644)
+	return ioutil.WriteFile(fileName, file, 0666)
+
 }
 
 // Create a new deck from a coma-separated string
